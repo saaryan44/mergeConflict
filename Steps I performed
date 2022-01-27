@@ -1,0 +1,282 @@
+$ git init
+Initialized empty Git repository in C:/Users/aarya/Desktop/mergeConflict/.git/
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ notepad file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git branch
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git add file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git commit -m "keep log of all commands. will add into readme later in the remote storage"
+[master (root-commit) cc3df25] keep log of all commands. will add into readme later in the remote storage
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git log
+commit cc3df25d7d5df62472c755886c94461456008704 (HEAD -> master)
+Author: aaryan <aaryab.ssj@gmail.com>
+Date:   Thu Jan 27 12:48:17 2022 +0530
+
+    keep log of all commands. will add into readme later in the remote storage
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git log --merge
+fatal: --merge without MERGE_HEAD?
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git checkout -b branch1
+Switched to a new branch 'branch1'
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git branch
+* branch1
+  master
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ echo "this is an overrite line inside branch1, echoed into file1" >file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git status
+On branch branch1
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git commit -m "this is branch1, overwrote file1 line"
+On branch branch1
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git add .
+warning: LF will be replaced by CRLF in file1.txt.
+The file will have its original line endings in your working directory
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git commit -m "this is branch1, line in file1 overwritten"
+[branch1 de1b876] this is branch1, line in file1 overwritten
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git status
+On branch branch1
+nothing to commit, working tree clean
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git checkout master
+Switched to branch 'master'
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ echo "i am a line that has been appended inside file1 from master branch" >>file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git add file1.txt
+warning: LF will be replaced by CRLF in file1.txt.
+The file will have its original line endings in your working directory
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git commit -m "I appended a second line inside file1 from the master branch"
+[master 5954ef9] I appended a second line inside file1 from the master branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git merge branch1
+Auto-merging file1.txt
+CONFLICT (content): Merge conflict in file1.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   file1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ cat file1.txt
+<<<<<<< HEAD
+I am a file in master.i am a line that has been appended inside file1 from master branch
+=======
+this is an overrite line inside branch1, echoed into file1
+>>>>>>> branch1
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ notepad file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   file1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ git add file1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ git status
+On branch master
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        modified:   file1.txt
+
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master|MERGING)
+$ git commit -m "I have resolved the conflict that occurred while merging two branches of the same file, by removing the markers, inidcating that I can simply remove the markers and include all the branches' content"
+[master ecaaafd] I have resolved the conflict that occurred while merging two branches of the same file, by removing the markers, inidcating that I can simply remove the markers and include all the branches' content
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git branch
+  branch1
+* master
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ cat file1.txt
+
+I am a file in master.i am a line that has been appended inside file1 from master branch
+
+this is an overrite line inside branch1, echoed into file1
+
+I have removed the head, center of confilct and the branch indicating tail and added this line after to merge conflict.
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git checkout branch1
+Switched to branch 'branch1'
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ cat file1.txt
+this is an overrite line inside branch1, echoed into file1
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git checkout master
+Switched to branch 'master'
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git merge branch1
+Already up to date.
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git remote add origin git@github.com:saaryan44/mergeConflict.git
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git push origin master
+Enumerating objects: 12, done.
+Counting objects: 100% (12/12), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (12/12), 1.34 KiB | 343.00 KiB/s, done.
+Total 12 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:saaryan44/mergeConflict.git
+ * [new branch]      master -> master
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ notepad fileInMaster.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git checkout branch1
+Switched to branch 'branch1'
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ notepad fileInBranch1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ notepad fileInBranch1.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git add .
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git commit -m "a file in branch1 branch"
+[branch1 a179c0c] a file in branch1 branch
+ 2 files changed, 2 insertions(+)
+ create mode 100644 fileInBranch1.txt
+ create mode 100644 fileInMaster.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (branch1)
+$ git checkout master
+Switched to branch 'master'
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git add .
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git merge branch1
+Merge made by the 'recursive' strategy.
+ fileInBranch1.txt | 1 +
+ fileInMaster.txt  | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 fileInBranch1.txt
+ create mode 100644 fileInMaster.txt
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git log --merge
+fatal: --merge without MERGE_HEAD?
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git push origin master
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 834 bytes | 278.00 KiB/s, done.
+Total 6 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:saaryan44/mergeConflict.git
+   ecaaafd..a4567b7  master -> master
+
+aarya@DESKTOP-4VM9Q3V MINGW64 ~/Desktop/mergeConflict (master)
+$ git push origin branch1
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'branch1' on GitHub by visiting:
+remote:      https://github.com/saaryan44/mergeConflict/pull/new/branch1
+remote:
+To github.com:saaryan44/mergeConflict.git
+ * [new branch]      branch1 -> branch1
+
