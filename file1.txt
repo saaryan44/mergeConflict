@@ -1,1 +1,6 @@
+
 I am a file in master.i am a line that has been appended inside file1 from master branch
+
+this is an overrite line inside branch1, echoed into file1
+
+I have removed the head, center of confilct and the branch indicating tail and added this line after to merge conflict.
