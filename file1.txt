@@ -1,1 +1,1 @@
-I am a file in master.
+I am a file in master.i am a line that has been appended inside file1 from master branch
