@@ -1,0 +1,1 @@
+I am a file in Branch1 branch. I am wanted inside the central repository, stored remotely, along with a file inside the MASTER branch.
